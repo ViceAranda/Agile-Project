@@ -1,0 +1,32 @@
+version: '3.1'
+
+services:
+
+  # Define a Database service
+  db:
+    # Choose latest mysql image
+    image: mysql
+    # Define a name
+    container_name: mysql-db
+    # In case of failure, always restart
+    restart: always
+
+    # Environment variables used at build time to create passwords and users
+    environment:
+      MYSQL_ROOT_PASSWORD: testing_root_password
+      MYSQL_DATABASE: testing_db
+      MYSQL_USER: testing_user
+      MYSQL_PASSWORD: testing_password_1!
+
+    # Choose ports to connect
+    ports:
+      - 3306:3306
+    # Define volumes for data persistance
+    volumes:
+      - mysql-data:/var/lib/mysql
+      # Seed the database on creation
+      - ./db_seed.sql:/docker-entrypoint-initdb.d/db_seed.sql
+
+# Abstract volumes
+volumes:
+  mysql-data:
