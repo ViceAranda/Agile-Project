@@ -1,12 +1,16 @@
 <!-- src/Navbar.svelte -->
 <script lang="ts">
-  export let pages: string[] = [];
-  export let activePage: string = '';
-  
+  let pages: string[] = ['Home', 'Boys', 'Girls', 'Sports', 'Footwear'];
+  let activePage: string = 'Home';
   function setActivePage(page: string) {
     activePage = page;
   }
 </script>
+<nav>
+  {#each pages as page}
+    <a on:click={() => setActivePage(page)} class:active={activePage === page} href="/{page === 'Home'? '' : page.toLowerCase()}">{page}</a>
+  {/each}
+</nav>
 
 <style>
   nav {
@@ -35,8 +39,3 @@
   }
 </style>
 
-<nav>
-  {#each pages as page}
-    <a on:click={() => setActivePage(page)} class:active={activePage === page}>{page}</a>
-  {/each}
-</nav>
