@@ -1,6 +1,6 @@
 <!-- src/Navbar.svelte -->
 <script lang="ts">
-  let pages: string[] = ['Home', 'Boys', 'Girls', 'Sports', 'Footwear'];
+  let pages: string[] = ['Home', 'Boys', 'Girls', 'Sports', 'Footwear', 'dbConnection'];
   let activePage: string = 'Home';
   function setActivePage(page: string) {
     activePage = page;
