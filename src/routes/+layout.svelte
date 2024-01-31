@@ -1,4 +1,5 @@
 <script>
+    import "../app.css";
     import DesktopNavigation from "../components/Navigation/DesktopNavigation.svelte";
     import DesktopFooter from "../components/Footer/DesktopFooter.svelte";
 </script>
