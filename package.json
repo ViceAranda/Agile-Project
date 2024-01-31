@@ -33,9 +33,8 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"mysql2": "^3.9.0"
-	},
-	"dependencies": {
-		"amazon-cognito-identity-js": "^6.3.7"
+		"amazon-cognito-identity-js": "^6.3.7",
+		"mysql": "^2.18.1",
+		"mysql2": "^3.9.1"
 	}
 }
