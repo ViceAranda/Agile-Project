@@ -1,15 +1,20 @@
-<!-- src/App.svelte -->
+<!--Home page-->
 <script lang="ts"> 
-  
+  import PromotionCard from "../components/PromotionCard.svelte";
 </script>
-  
+<!-- hero banner -->
 
-<div class="index">
-  <p>this is index page from +page</p>
+<!-- promotion items -->
+<div class="flex justify-center items-center">
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+    <PromotionCard imageUrl ={"image 2.png"} /> 
+    <PromotionCard imageUrl ={"image 3.png"} /> 
+    <PromotionCard imageUrl ={"image 4.png"} /> 
+    <PromotionCard imageUrl ={"image 2.png"} /> 
+    <PromotionCard imageUrl ={"image 3.png"} /> 
+    <PromotionCard imageUrl ={"image 4.png"} /> 
+  </div>
 </div>
-<h1 class="text-3xl font-bold underline">
-  Hello world!
-</h1>
 
 <style lang="postcss">
   :global(html) {
