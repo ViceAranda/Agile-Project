@@ -1,13 +1,6 @@
-<div class="border-t-2 border-black max-h-200 bg-white text-black p-10 fixed bottom-0 w-full box-border flex justify-between">
+<div class="bg-white text-black p-10 bottom-0 w-full flex flex-col sm:flex-row justify-between mt-4 pl-[5%] pr-[5%]">
 
-	<div class="flex-1 text-center">
-		<div class="bg-white">
-			<img src="/logo-no-background 2.png" alt="footer logo">
-			<p class="text-start">Copyright 2023 - All rights reserved</p>
-		</div>
-	</div>
-
-	<div class="flex-1 text-center">
+	<div class="flex-1 text-center mt-4">
 		<div class="bg-white flex justify-evenly">
 			<div class="boys-list">
 				<h2><u>Boys</u></h2>
@@ -44,13 +37,29 @@
 		</div>
 	</div>
 
-	<div class="flex-1 text-right pr-10">
+	<div class="flex-1 text-center mt-4">
 		<h2><u>CONTACT US</u></h2>
 		<p>123 Fake street</p>
 		<p>London</p>
 		<p>W32 7AB</p><br>
 		<p>info@classclothco.com</p>
 		<p>support@classclothco.com</p>
+	</div>
+
+	<div class="flex-1">
+		<div class="bg-whit">
+			<img 
+			src="/logo-no-background 2.png" 
+			alt="footer logo"
+			class="relative sm:left-[50%] w-40 h-20 sm:bottom-0 sm:mb-4 sm:ml-[40%] sm:transform sm:-translate-x-1/2 sm:translate-y-1"
+			>
+			
+			<p 
+			class="text-end"
+			>
+			Copyright 2023 - All rights reserved
+			</p>
+		</div>
 	</div>
 
 </div>
