@@ -1,9 +1,12 @@
 <!--Home page-->
 <script lang="ts"> 
   import PromotionCard from "../components/PromotionCard.svelte";
+  import HeroBanner from "../components/HeroBanner.svelte";
 </script>
 <!-- hero banner -->
-
+<div class="flex justify-center items-center">
+    <HeroBanner />
+</div>
 <!-- promotion items -->
 <div class="flex justify-center items-center">
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
