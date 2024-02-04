@@ -3,10 +3,10 @@ import { mysqlconnFn } from "$lib/db/mysql";
 
 export async function POST({ request }) {
   const { st } = await request.json();
-  let mysqlconn = await mysqlconnFn();
-  let results = await mysqlconn
+  const mysqlconn = await mysqlconnFn();
+  const results = await mysqlconn
     .query("SELECT * FROM USERS where fname = '" + st + "'")
-    .then(function ([rows, fields]) {
+    .then(function ([rows]) {
       //     console.log("Got this far!!");
       //     console.log(rows);
       return rows;

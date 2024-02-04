@@ -5,6 +5,7 @@ import {
 	CognitoUserPool,
 	CognitoUserSession
 } from 'amazon-cognito-identity-js';
+import { mysqlconnFn } from '$lib/db/mysql';
 import type { User } from '@types';
 
 export class Authenticator {
@@ -65,10 +66,24 @@ export class Authenticator {
 			attributeList.push(new CognitoUserAttribute(attribute));
 		});
 
-		this.UserPool.signUp(user.email, user.password, attributeList, [], (error, result) => {
+		this.UserPool.signUp(user.email, user.password, attributeList, [], async (error, result) => {
 			if (error) this.ErrorLogger.push(error);
 			if (result) {
 				this.User = result.user;
+
+				const conn = await mysqlconnFn();
+				const userDB = { id: result.userSub, region_id: conn.escapeId(user.region_id), location_id: conn.escapeId(user.location_id) };
+				conn.connect();
+				try {
+					const [results, fields] = await conn.execute('INSERT INTO USERS ?', userDB);
+					console.log(results);
+					console.log(fields);
+					console.log('Successfully created user ', result.userSub);
+
+				} catch (error) {
+					console.log(error);
+				}
+				conn.destroy();
 			}
 		});
 	}
