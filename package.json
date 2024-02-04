@@ -36,6 +36,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@splidejs/svelte-splide": "^0.2.9",
 		"amazon-cognito-identity-js": "^6.3.7",
 		"mysql": "^2.18.1",
 		"mysql2": "^3.9.1"
