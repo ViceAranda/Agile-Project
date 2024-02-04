@@ -4,7 +4,7 @@
     // default theme
     import '@splidejs/svelte-splide/css';
 </script>
-<Splide
+<Splide class="flex bg-red-600 justify-center" 
   options={ {
     rewind: true,
     rewindByDrag: true,
@@ -12,12 +12,12 @@
   } }
 >
     <SplideSlide>
-        <img src="image 1.png" alt="students in uniform" />
+        <img class="w-full" src="image 1.png" alt="students in uniform" />
     </SplideSlide>
     <SplideSlide>
-        <img src="image 1.png" alt="students in uniform" />
+        <img class="w-full" src="image 1.png" alt="students in uniform" />
     </SplideSlide>
     <SplideSlide>
-        <img src="image 1.png" alt="students in uniform" />
+        <img class="w-full" src="image 1.png" alt="students in uniform" />
     </SplideSlide>
 </Splide>
