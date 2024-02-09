@@ -1,7 +1,7 @@
 <!--Home page-->
 <script lang="ts"> 
-  import PromotionCard from "../components/PromotionCard.svelte";
-  import HeroBanner from "../components/HeroBanner.svelte";
+  import PromotionCard from "$lib/components/PromotionCard.svelte";
+  import HeroBanner from "$lib/components/HeroBanner.svelte";
 </script>
 <!-- hero banner -->
 <div class="flex justify-center items-center">

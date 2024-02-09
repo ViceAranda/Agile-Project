@@ -1,7 +1,7 @@
 <script>
     import "../app.css";
-    import DesktopNavigation from "../components/Navigation/DesktopNavigation.svelte";
-    import DesktopFooter from "../components/Footer/DesktopFooter.svelte";
+    import DesktopNavigation from "$lib/components/Navigation/DesktopNavigation.svelte";
+    import DesktopFooter from "$lib/components/Footer/DesktopFooter.svelte";
     
 </script>
 <header>
