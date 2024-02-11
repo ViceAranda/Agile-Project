@@ -17,6 +17,21 @@ export async function selectAll() {
 }
 
 /**
+ * Get product by id. Might throw an error!
+ * @returns Products
+ */
+export async function selectById(id: number) {
+    const conn = await initConnection();
+    conn.connect();
+
+    const sql = 'SELECT * FROM PRODUCTS WHERE id = ' + conn.escapeId(id.toString());
+    const [ rows ] = await conn.query(sql);
+
+    conn.destroy();
+    return rows;
+}
+
+/**
  * Might return errors
  * @param category 
  * @returns List of Products
