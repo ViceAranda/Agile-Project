@@ -24,7 +24,7 @@ export async function selectById(id: number) {
     const conn = await initConnection();
     conn.connect();
 
-    const sql = 'SELECT * FROM PRODUCTS WHERE id = ' + conn.escapeId(id.toString());
+    const sql = 'SELECT * FROM PRODUCTS WHERE id = ' + conn.escape(id.toString());
     const [ rows ] = await conn.query(sql);
 
     conn.destroy();
