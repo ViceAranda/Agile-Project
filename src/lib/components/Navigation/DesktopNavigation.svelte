@@ -1,5 +1,5 @@
 <script  lang="ts">
-	let pages: string[] = ['Home', 'Boys', 'Girls', 'Sports', 'Footwear'];
+	let pages: string[] = ['Boys', 'Girls', 'Sports', 'Footwear'];
 	let activePage: string = 'Home';
 	function setActivePage(page: string) {
 		activePage = page;
@@ -12,6 +12,7 @@
 	let logo = '/logo-no-background 1.png';
 
 	import CartModal from '../Cart/CartModal.svelte'; 
+	import SearchBar from '../Search/searchBar.svelte';
 	let showModal = false; //Cart button code [FB]
 
 
@@ -19,7 +20,7 @@
   </script>
   
   <div>
-    <div class="bg-black mb-4 shadow-xl">
+    <div class="bg-black mb-4 shadow-xl ">
       <nav
         class="container px-5 py-4 mx-auto md:flex md:justify-between md:items-center"
       >
@@ -62,47 +63,16 @@
             : 'hidden'}"
         >
 		<div class="grid grid-cols-1 grid-rows-2 gap-4">
-			<div>
-				<div class="hero bg-gredient-dark h-400px flex flex-col">
-					<div class="search-box mx-auto my-auto w-">
-						<form class="flex flex-row">
-							<input
-								type="text"
-								name="search"
-								id="search"
-								placeholder="Search for products..."
-								class="form-input border rounded-tl-md rounded-bl-md py-3 px-4 bg-white placeholder-gray-400 text-gray-500 appearance-none block md:w-[50vh] focus:outline-none"
-							/>
-							<span
-								class="flex items-center bg-white rounded rounded-l-none border-0 px-3 font-bold text-black"
-							>
-								<button class="rounded-tr-md rounded-br-md bg-white focus:outline-none">
-									<svg
-										xmlns="http://www.w3.org/2000/svg"
-										viewBox="0 0 24 24"
-										fill="currentColor"
-										class="pointer-events-none cursor-pointer w-6 h-6"
-									>
-										<path
-											fill-rule="evenodd"
-											d="M10.5 3.75a6.75 6.75 0 1 0 0 13.5 6.75 6.75 0 0 0 0-13.5ZM2.25 10.5a8.25 8.25 0 1 1 14.59 5.28l4.69 4.69a.75.75 0 1 1-1.06 1.06l-4.69-4.69A8.25 8.25 0 0 1 2.25 10.5Z"
-											clip-rule="evenodd"
-										/>
-									</svg>
-								</button>
-							</span>
-						</form>
-					</div>
-				</div>
+			<div class="relative">
+				<SearchBar />
 			</div>
 			<div class="row-start-2 items-center justify-center text-center flex sm:flex-col md:flex-row">
 				{#each pages as page}
 					<a
-						class="text-white bg-black rounded-md py-3 px-4 focus:bg-white hover:bg-gray-100 hover:text-black text-center "
-
+						class="text-white bg-black rounded-md py-3 px-4 focus:bg-white hover:bg-gray-100 hover:text-black text-center"
 						on:click={() => setActivePage(page)}
 						class:active={activePage === page}
-						href="/{page === 'Home' ? '' : page.toLowerCase()}"
+						href="/products?name={page === 'Home' ? '' : encodeURIComponent(page)}"
 					>
 						{page}
 					</a>
