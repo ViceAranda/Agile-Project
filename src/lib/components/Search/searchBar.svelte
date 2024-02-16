@@ -46,7 +46,7 @@
                 name="search"
                 id="search"
                 autocomplete="off"
-                placeholder="Search for products..."
+                placeholder="Search..."
                 class="form-input border rounded-tl-md rounded-bl-md py-3 px-4 bg-white placeholder-gray-400 text-gray-500 appearance-none block md:w-[50vh] focus:outline-none"
                 bind:value={searchValue}
                 on:input={search}
