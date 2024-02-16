@@ -73,7 +73,7 @@
 						class="text-white bg-black rounded-md py-3 px-4 focus:bg-white hover:bg-gray-100 hover:text-black text-center"
 						on:click={() => setActivePage(page)}
 						class:active={activePage === page}
-						href="/products?name={page === 'Home' ? '' : encodeURIComponent(page)}"
+						href="/products?cat={page === 'Home' ? '' : encodeURIComponent(page)}"
 					>
 						{page}
 					</a>

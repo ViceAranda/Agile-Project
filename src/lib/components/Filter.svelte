@@ -1,11 +1,14 @@
 <script lang="ts">
+
+import { createEventDispatcher } from 'svelte';
+  const dispatch = createEventDispatcher();
   
   // enum variables need to later match database
   enum Price {
     all = 'all',
-    low = 'low',
-    mid = 'mid',
-    high = 'high',
+    low = '10',
+    mid = '15-20',
+    high = '21+',
   }
 
   enum Size {
@@ -25,6 +28,8 @@
   let selectedSize: Size = Size.s;
   let selectedFit: Fit = Fit.standard;
 
+  $: dispatch('filterChange', { selectedPrice, selectedSize, selectedFit });
+
   //functions to apply filter base on selected option
   //function filterSelectedPrice etc.
 </script>
@@ -37,13 +42,13 @@
       <input type="radio" bind:group={selectedPrice} value={Price.all} /> {'All'}
       </label> <br>
       <label>
-      <input type="radio" bind:group={selectedPrice} value={Price.low} /> {'< £5'}
+      <input type="radio" bind:group={selectedPrice} value={Price.low} /> {'< £10'}
       </label> <br>
       <label>
-      <input type="radio" bind:group={selectedPrice} value={Price.mid} /> {'£5-10'}
+      <input type="radio" bind:group={selectedPrice} value={Price.mid} /> {'£15-20'}
       </label> <br>
       <label> 
-      <input type="radio" bind:group={selectedPrice} value={Price.high} /> {'> £10'}
+      <input type="radio" bind:group={selectedPrice} value={Price.high} /> {' £21+'}
       </label>
       <p>selected price group is {selectedPrice}</p>
     </div>

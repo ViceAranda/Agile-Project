@@ -77,7 +77,7 @@
                 {:else}
                     {#each searchResults as result (result)}
                         <div class="p-2 hover:bg-gray-200">
-                            <a href={`/products/?name=${encodeURIComponent(result)}`}>
+                            <a href={`/products/?cat=?subcat=${encodeURIComponent(result)}`}>
                                 {result}
                             </a>
                         </div>
