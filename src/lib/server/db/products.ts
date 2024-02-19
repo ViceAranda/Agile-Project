@@ -77,12 +77,12 @@ export async function fuzzySelect(searchTerm: string) {
     const conn = await initConnection();
     conn.connect();
 
-    const escapedTerm = conn.escape(searchTerm);
+    const escapedTerm = conn.escape(searchTerm).replace(/^'(.*)'$/, '$1');
     const sql = `SELECT P.* ,C.name AS category FROM PRODUCTS AS P
-	JOIN PRODUCT_CATEGORIES ON P.id = PRODUCT_CATEGORIES.product_id
-	JOIN CATEGORIES AS C ON PRODUCT_CATEGORIES.category_id = C.id
-	WHERE P.name LIKE '%${escapedTerm}%' OR C.name LIKE '%${escapedTerm}%'
-	ORDER BY category;`;
+    JOIN PRODUCT_CATEGORIES ON P.id = PRODUCT_CATEGORIES.product_id
+    JOIN CATEGORIES AS C ON PRODUCT_CATEGORIES.category_id = C.id
+    WHERE P.name LIKE '%${escapedTerm}%' OR C.name LIKE '%${escapedTerm}%'
+    ORDER BY category;`;
 
     const [ rows ] = await conn.query(sql);
     conn.destroy();
