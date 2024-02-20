@@ -9,7 +9,10 @@ export async function selectAll() {
     const conn = await initConnection();
     conn.connect();
 
-    const sql = 'SELECT * FROM PRODUCTS';
+    const sql = `SELECT p.id , p.name, p.description , p.price , p.stock , p.${`size`}, p.fit, c.name as category  FROM PRODUCTS p 
+    JOIN PRODUCT_CATEGORIES pc ON p.id = pc.product_id 
+    JOIN CATEGORIES c ON pc.category_id = c.id
+    ORDER BY p.id`;
     const [ rows ] = await conn.query(sql);
 
     conn.destroy();
@@ -24,7 +27,13 @@ export async function selectById(id: string) {
     const conn = await initConnection();
     conn.connect();
 
-    const sql = 'SELECT * FROM PRODUCTS WHERE id = ' + conn.escapeId(id);
+    const escapedId = conn.escapeId(id).replaceAll('`', '');
+
+    const sql = `SELECT p.id , p.name, p.description , p.price , p.stock , p.${`size`}, p.fit, c.name as category  FROM PRODUCTS p 
+    JOIN PRODUCT_CATEGORIES pc ON p.id = pc.product_id 
+    JOIN CATEGORIES c ON pc.category_id = c.id
+    WHERE p.id=${escapedId}
+    ORDER BY p.id`;
     const [ rows ] = await conn.query(sql);
 
     conn.destroy();
@@ -36,13 +45,17 @@ export async function selectById(id: string) {
  * @param category 
  * @returns List of Products
  */
-export async function selectByCategory(category: string) {
+export async function selectByCategory(categoryId: string) {
     const conn = await initConnection();
     conn.connect();
 
-    const sql = `SELECT PRODUCTS.* FROM PRODUCTS 
-    INNER JOIN CATEGORIES ON PRODUCTS.category_id = CATEGORIES.id 
-    WHERE CATEGORIES.name = ` + conn.escape(category);
+    const escapedId = conn.escapeId(categoryId).replaceAll('`', '');
+
+    const sql = `SELECT p.id , p.name, p.description , p.price , p.stock , p.${`size`}, p.fit, c.name as category  FROM PRODUCTS p 
+    JOIN PRODUCT_CATEGORIES pc ON p.id = pc.product_id 
+    JOIN CATEGORIES c ON pc.category_id = c.id
+    WHERE c.id=${escapedId}
+    ORDER BY p.id`;
 
     const [ rows ] = await conn.query(sql);
     conn.destroy();
@@ -54,7 +67,7 @@ export async function selectByCategory(category: string) {
  * @param schoolId 
  * @returns List of Products
  */
-export async function selectBySchool(schoolId: string) {
+/*export async function selectBySchool(schoolId: string) {
     const conn = await initConnection();
     conn.connect();
 
@@ -65,7 +78,7 @@ export async function selectBySchool(schoolId: string) {
     const [ rows ] = await conn.query(sql);
     conn.destroy();
     return rows;
-}
+}*/
 
 /**
  * Matches search term agains product and categories' names.
@@ -78,11 +91,11 @@ export async function fuzzySelect(searchTerm: string) {
     conn.connect();
 
     const escapedTerm = conn.escape(searchTerm).replace(/^'(.*)'$/, '$1');
-    const sql = `SELECT P.* ,C.name AS category FROM PRODUCTS AS P
-    JOIN PRODUCT_CATEGORIES ON P.id = PRODUCT_CATEGORIES.product_id
-    JOIN CATEGORIES AS C ON PRODUCT_CATEGORIES.category_id = C.id
-    WHERE P.name LIKE '%${escapedTerm}%' OR C.name LIKE '%${escapedTerm}%'
-    ORDER BY category;`;
+    const sql = `SELECT p.id , p.name, p.description , p.price , p.stock , p.${`size`}, p.fit, c.name as category  FROM PRODUCTS p 
+    JOIN PRODUCT_CATEGORIES pc ON p.id = pc.product_id 
+    JOIN CATEGORIES c ON pc.category_id = c.id
+    WHERE p.name LIKE '%${escapedTerm}%' OR c.name LIKE '%${escapedTerm}%'
+    ORDER BY p.id`;
 
     const [ rows ] = await conn.query(sql);
     conn.destroy();

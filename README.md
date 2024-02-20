@@ -122,3 +122,63 @@ If you want to access form actions from another part of the application, you can
     ...
 </form>
 ```
+
+&nbsp;
+
+&nbsp;
+
+## Database Connection
+
+We can perform two kinds of operations over a database: Query its data or modify it.
+
+### Basic steps
+There are 4 steps necessary to perform operations on a DB:
+1. Start a connection with the DB engine:
+```Typescript
+    // This is an asynchronous operation, so be sure to use `await`
+    // inside an `async` function.
+    const conn = await initConnection();
+    conn.connect();
+
+```
+2. Write a SQL statement:
+```Typescript
+// In this example, we JOIN three tables to get every product's info
+const sql = `SELECT p.id , p.name, p.description , p.price , p.stock , p.${`size`}, p.fit, c.name as category  FROM PRODUCTS p 
+    JOIN PRODUCT_CATEGORIES pc ON p.id = pc.product_id 
+    JOIN CATEGORIES c ON pc.category_id = c.id
+    ORDER BY p.id`;
+```
+3. Execute the SQL statement by querying or commiting to the DB:
+```Typescript
+const [ rows ] = await conn.query(sql);
+```
+4. Close the connection:
+```Typescript
+// You must close the connection to free resources
+conn.destroy();
+```
+
+So, the whole process is like this:
+```Typescript
+const conn = await initConnection();
+conn.connect();
+
+const sql = `SELECT p.id , p.name, p.description , p.price , p.stock , p.${`size`}, p.fit, c.name as category  FROM PRODUCTS p 
+JOIN PRODUCT_CATEGORIES pc ON p.id = pc.product_id 
+JOIN CATEGORIES c ON pc.category_id = c.id
+ORDER BY p.id`;
+const [ rows ] = await conn.query(sql);
+
+conn.destroy();
+return rows;
+```
+
+## Basic security
+You should always escape user-typed values to avoid SQL-injection attacks:
+```Typescript
+const conn = await initConnection();
+conn.connect();
+
+const escapedValue = conn.escape("user-typed values")
+```
