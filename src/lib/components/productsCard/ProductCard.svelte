@@ -5,7 +5,7 @@
 	export let id: string = '';
 </script>
 
-<div class="w-[80%] overflow-hidden rounded-lg shadow-lg mb-4">
+<div class="w-[80%] h-auto overflow-hidden rounded-lg shadow-lg mb-4">
 	<div>
 		<a href="products/{id}">
 			<!-- svelte-ignore a11y-img-redundant-alt -->

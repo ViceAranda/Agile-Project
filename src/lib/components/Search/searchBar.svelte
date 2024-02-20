@@ -19,7 +19,7 @@
 				type="text"
 				bind:value={searchValue}
 				on:input={search}
-				on:blur={() => (searchValue = '')}
+                on:blur={() => setTimeout(() => searchValue = '', 200)}
 				class="form-input border rounded-tl-md rounded-bl-md py-3 px-4 bg-white placeholder-gray-400 text-gray-500 appearance-none block md:w-[50vh] focus:outline-none"
 				placeholder="Search..."
 			/>
@@ -43,25 +43,25 @@
 				</button>
 			</span>
 		</form>
-		{#if searchValue}
-			<div
-				class="absolute w-full top-full mt-1 bg-white border rounded-md shadow-md z-20 overflow-auto max-h-60"
-			>
-				{#if searchResults.length === 0}
-					<div class="p-2">No results found</div>
-				{:else}
-					{#each searchResults as result (result.id)}
-						<!-- Assuming result has an 'id' property -->
-						<div class="p-2 hover:bg-gray-200">
-							<a href={`/products/?cat=?subcat=${encodeURIComponent(result.name)}`}>
-								<!-- Assuming result has a 'name' property -->
-								{result.name}
-								<!-- Display the 'name' property of the result -->
-							</a>
-						</div>
-					{/each}
-				{/if}
-			</div>
-		{/if}
+        {#if searchValue}
+            <div class="absolute w-full top-full mt-1 bg-white border rounded-md shadow-md z-20 overflow-auto max-h-60">
+                {#if searchResults.length === 0}
+                    <div class="p-2">No results found</div>
+                {:else}
+                    <div class="p-2 font-bold">
+                        <a href={`/products/?cat=&SubCat=${encodeURIComponent(searchValue)}`}>
+                            {searchValue}
+                    </a>
+                </div> <!-- Add this line -->
+                    {#each searchResults as result (result.id)} <!-- Assuming result has an 'id' property -->
+                        <div class="p-2 hover:bg-gray-200">
+                            <a href={`/${encodeURIComponent(result.id)}`}> <!-- Assuming result has a 'name' property -->
+                                {result.name} <!-- Display the 'name' property of the result -->
+                            </a>
+                        </div>
+                    {/each}
+                {/if}
+            </div>
+        {/if}
 	</div>
 </div>
