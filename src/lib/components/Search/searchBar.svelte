@@ -55,7 +55,7 @@
                 </div> <!-- Add this line -->
                     {#each searchResults as result (result.id)} <!-- Assuming result has an 'id' property -->
                         <div class="p-2 hover:bg-gray-200">
-                            <a href={`/${encodeURIComponent(result.id)}`}> <!-- Assuming result has a 'name' property -->
+                            <a href={`/products/${encodeURIComponent(result.id)}`}> <!-- Assuming result has a 'name' property -->
                                 {result.name} <!-- Display the 'name' property of the result -->
                             </a>
                         </div>
