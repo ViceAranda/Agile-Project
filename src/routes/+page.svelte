@@ -12,10 +12,10 @@
     <HeroBanner />
 </div>
 
-<button on:click={getProducts}>CLick me</button>
+<!-- <button on:click={getProducts}>CLick me</button> -->
 <!-- promotion items -->
 <div class="flex justify-center items-center">
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+  <div class="grid grid-cols-1 mt-5 md:grid-cols-2 lg:grid-cols-3 gap-20">
     <PromotionCard imageUrl ={"image 2.png"} /> 
     <PromotionCard imageUrl ={"image 3.png"} /> 
     <PromotionCard imageUrl ={"image 4.png"} /> 

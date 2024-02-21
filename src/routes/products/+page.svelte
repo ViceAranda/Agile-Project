@@ -18,39 +18,47 @@
 			.then((data) => {
 				Data = data;
 				filteredData = Data; // Setting the fetched data to Data and filteredData
-				$: {	// Reactive statement to get URL parameters and apply filters
-					URLCat = $page.url.searchParams.get('cat');
-					URLSearchTerm = $page.url.searchParams.get('SubCat');
-
-					// Call handleFilterChange to apply filters whenever URLSearchTerm changes
-					handleFilterChange(
-						new CustomEvent('filterChange', {
-							detail: {
-								selectedPrice: [],
-								selectedSize: [],
-								selectedFit: []
-							}
-						})
-					);
-					// Filter by category if URLCat is present
-					if (URLCat) {
-						filteredData = filterByCategory(filteredData, URLCat);
-					}
-				}
 			})
-			.then(() => console.log(Data))
+			// .then(()=> console.log(Data))
 			.catch((err) => console.log(err)); // Logging any errors
 	});
+
+	// Reactive statement to get URL parameters and apply filters
+    $: {
+        URLCat = $page.url.searchParams.get('cat');
+        URLSearchTerm = $page.url.searchParams.get('SubCat');
+
+        // Reset filteredProducts to Data before applying each filter
+        let filteredProducts = [...Data];
+
+        // Filter by category if URLCat is present
+        if (URLCat) {
+            filteredProducts = filterByCategory(filteredProducts, URLCat);
+        }
+
+        // Apply the search term filter
+        if (URLSearchTerm) {
+            filteredProducts = filterBySearchTerm(filteredProducts, URLSearchTerm);
+        }
+
+        filteredData = filteredProducts; // Update filteredData with the filtered products
+    }
 
 	// Function to filter products by category
 	function filterByCategory(products: any[], category: string) {
 		let categoryId: any;
 		switch (category.toLowerCase()) {
 			case 'boys':
-				categoryId = 7;
+				categoryId = 1;
 				break;
 			case 'girls':
-				categoryId = 8;
+				categoryId = 2;
+				break;
+			case 'sports':
+				categoryId = 3;
+				break;
+			case 'footwear':
+				categoryId = 4;
 				break;
 			default:
 				categoryId = null;
@@ -58,12 +66,13 @@
 
 		// If categoryId is set, filter products based on it
 		if (categoryId) {
-			return products.filter((product) => product.category_id === categoryId);
+			return products.filter((product) => parseInt(product.nav_category) === categoryId);
 		}
 
 		// If categoryId is not set, return all products
 		return products;
 	}
+
 	// Function to filter products by price
 	function filterByPrice(products: any[], selectedPrice: string[]) {
 		if (!selectedPrice.length) return products; // If no price is selected, return all products
