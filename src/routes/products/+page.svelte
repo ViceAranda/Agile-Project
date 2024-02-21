@@ -19,7 +19,7 @@
 				Data = data;
 				filteredData = Data; // Setting the fetched data to Data and filteredData
 			})
-			// .then(()=> console.log(Data))
+			.then(()=> console.log(Data))
 			.catch((err) => console.log(err)); // Logging any errors
 	});
 

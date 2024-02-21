@@ -9,7 +9,7 @@ export async function selectAll() {
     const conn = await initConnection();
     conn.connect();
 
-    const sql = `SELECT p.id , p.name, p.description , p.price , p.stock , p.${`size`}, p.fit, c.name as category  FROM PRODUCTS p 
+    const sql = `SELECT p.id , p.name, p.description , p.price , p.stock , p.${`size`}, p.fit, p.nav_category , c.name as category  FROM PRODUCTS p 
     JOIN PRODUCT_CATEGORIES pc ON p.id = pc.product_id 
     JOIN CATEGORIES c ON pc.category_id = c.id
     ORDER BY p.id`;
