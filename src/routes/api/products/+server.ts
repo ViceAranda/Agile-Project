@@ -1,5 +1,5 @@
 import { json } from '@sveltejs/kit';
-import { fuzzySelect, selectAll, selectByCategory, selectById, selectBySchool } from '$lib/server/db/products';
+import { fuzzySelect, selectAll, selectByCategory, selectById } from '$lib/server/db/products';
 
 /**
  * 
@@ -7,7 +7,6 @@ import { fuzzySelect, selectAll, selectByCategory, selectById, selectBySchool } 
  * - Select All
  * - Select Single Product
  * - Select By Category
- * - Select By School
  * - Select By Search term.
  * 
  * Searching by a term performs fuzzy search on the database based on category names, and product names.
@@ -15,30 +14,28 @@ import { fuzzySelect, selectAll, selectByCategory, selectById, selectBySchool } 
  * Use it as:
  * - `fetch('/api/products')`
  * - `fetch('/api/products?id=123')`
- * - `fetch('/api/products?category=Shoewear')`
- * - `fetch('/api/products?school_id=123')`
- * - `fetch('/api/products?search_term=123')`
+ * - `fetch('/api/products?category_id=123')`
+ * - `fetch('/api/products?search_term=shirt')`
  * 
  * Search is conducted by preference as:
  * 1. Product id
- * 2. Category name
- * 3. School id
- * 4. Fuzzy term
- * 5. Default general search
+ * 2. Category id
+ * 3. Fuzzy term
+ * 4. Default general search
 */
 export async function GET({ url }) {
-    console.log('Request data: ', url);
+    
     const productId = url.searchParams.get('id');
-    const category = url.searchParams.get('category');
-    const schoolId = url.searchParams.get('school_id');
+    const categoryId = url.searchParams.get('category_id');
+    //const schoolId = url.searchParams.get('school_id');
     const searchTerm = url.searchParams.get('search_term');
 
     try {
         let results;
 
         if (productId) results = await selectById(productId);
-        else if (category) results = await selectByCategory(category);
-        else if (schoolId) results = await selectBySchool(schoolId);
+        else if (categoryId) results = await selectByCategory(categoryId);
+        //else if (schoolId) results = await selectBySchool(schoolId);
         else if (searchTerm) results = await fuzzySelect(searchTerm);
         else results = await selectAll();
         

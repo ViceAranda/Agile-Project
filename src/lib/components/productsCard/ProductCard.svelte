@@ -7,7 +7,7 @@
 
 <div class="w-[80%] h-auto overflow-hidden rounded-lg shadow-lg mb-4">
 	<div>
-		<a href="/{id}">
+		<a href="products/{id}">
 			<!-- svelte-ignore a11y-img-redundant-alt -->
 			<img
 				src={imageUrl}
