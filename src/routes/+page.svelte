@@ -7,6 +7,11 @@
     fetch('/api/products?id=1').then(res => res.json()).then(data => console.log(data));
   }
 </script>
+
+<svelte:head>
+    <title>ClassClothCo.co.uk</title> 
+</svelte:head>
+
 <!-- hero banner -->
 <div class="flex justify-center items-center">
     <HeroBanner />

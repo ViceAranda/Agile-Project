@@ -10,6 +10,14 @@
 
 </script>
 
+<svelte:head>
+    <title> Your Basket</title> 
+</svelte:head>
+
+
+<h1 class="text-3xl font-bold leading-6 text-gray-900 mt-5 mb-10 ml-4 underline underline-offset-auto">
+    Your Basket
+</h1>
 <div class="flex flex-col sm:flex-row h-full">
     <!-- Left Hand Panel -->
     <div class="ml-5 sm:w-full md:w-[80%]">

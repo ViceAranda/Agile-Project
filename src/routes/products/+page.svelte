@@ -163,6 +163,10 @@
 	};
 </script>
 
+<svelte:head>
+    <title>Search</title> 
+</svelte:head>
+
 <!-- svelte-ignore non-top-level-reactive-declaration -->
 <!-- HTML markup for the page -->
 <div class="flex justify-center">
