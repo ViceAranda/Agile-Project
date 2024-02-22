@@ -10,19 +10,24 @@
     rewindByDrag: true,
     width: '80%',
     autoplay: true,
-    heightRatio: 0.5,
+    interval: 7000,
+    pauseOnHover: true,
+    pagination: false,
+    arrows: true,
+    heightRatio: 0.6,
+
   } }
 >
     <SplideSlide>
-        <img class="w-full rounded-lg" src="image 1.png" alt="students in uniform" />
+        <img class="w-full h-full rounded-lg" src="image 1.png" alt="students in uniform" />
     </SplideSlide>
     <SplideSlide>
-        <img class="w-full rounded-lg" src="image 2.png" alt="students in uniform" />
+        <img class="w-full h-full rounded-lg" src="image 2.png" alt="students in uniform" />
     </SplideSlide>
     <SplideSlide>
-        <img class="w-full rounded-lg" src="image 3.png" alt="students in uniform" />
+        <img class="w-full h-full rounded-lg" src="image 3.png" alt="students in uniform" />
     </SplideSlide>
     <SplideSlide>
-        <img class="w-full rounded-lg" src="image 4.png" alt="students in uniform" />
+        <img class="w-full h-full rounded-lg" src="image 4.png" alt="students in uniform" />
     </SplideSlide>
 </Splide>
