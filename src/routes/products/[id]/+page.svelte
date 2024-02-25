@@ -7,8 +7,9 @@
 
     export let data: PageData
 
-    let name: string = 'Product 1';
+    let name: string = '';
     let price: Number = 0;
+    let imageUrl: string = '';
 
     let productID = data.id,
         productData: Product;
@@ -26,12 +27,16 @@
 
         name = productData.name;
         price = productData.price;
+        imageUrl = productData.image_url;
+        
+        console.log(productData.imageUrl);
+        console.log("The image url is: " + imageUrl);
 
     })
 
 
     import Review from "$lib/components/Review.svelte";
-    export let imageUrl: string = '/image 1.png';
+    //export let imageUrl: string = '/image 1.png';
 	//export let name: string = 'Product 1';
 	//export let price: Number = 0;
 	// export let id: string = '';
