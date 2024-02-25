@@ -4,6 +4,7 @@
 	import type { Product } from '@types';
 	import { onMount } from 'svelte';
 	import type { PageData } from './$types';
+    import Review from "$lib/components/Review.svelte";
 
     export let data: PageData
 
@@ -34,12 +35,6 @@
 
     })
 
-
-    import Review from "$lib/components/Review.svelte";
-    //export let imageUrl: string = '/image 1.png';
-	//export let name: string = 'Product 1';
-	//export let price: Number = 0;
-	// export let id: string = '';
 	export let size: string = '';
 	export let quantity: Number;
 
@@ -50,7 +45,6 @@
 </script>
 
 
-
 {#if productData}
     <code>
         <pre>
@@ -58,7 +52,6 @@
         </pre>
     </code>
 {/if}
-
 
 
 <div class="flex justify-center">
