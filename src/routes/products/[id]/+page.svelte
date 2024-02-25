@@ -1,7 +1,5 @@
 <script lang="ts">
     
-    
-    
     import { page } from '$app/stores';
 	import type { Product } from '@types';
 	import { onMount } from 'svelte';
