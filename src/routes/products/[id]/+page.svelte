@@ -55,9 +55,9 @@
 
 
 <div class="flex justify-center">
-    <div class="left-container w-[50%]">
-        <div class="product-image bg-yellow-200">
-            <img src={imageUrl} alt="product image">
+    <div class="left-container w-[50%] flex flex-col items-center justify-center">
+        <div class="product-image bg-white">
+            <img src={imageUrl} alt="product image" class="max-w-full h-auto">
         </div>
         <div class="review bg-orange-500">
             <Review />
