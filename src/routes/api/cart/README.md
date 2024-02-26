@@ -5,7 +5,7 @@
 Use the `GET` method as:
 
 ```TS
-const response = await fetch("/api/cart?user_id=1", { method: "GET" });
+const response = await fetch("/api/cart?user_id=1");
 ```
 
 ## Add item to cart:

@@ -8,7 +8,7 @@ import type { ResultSetHeader } from 'mysql2';
 export async function GET({ url }) {
 	const userId = url.searchParams.get('user_id');
 
-	if (userId === null) return json({ message: 'No UserID found.' }, { status: 400 });
+	if (!userId) return json({ message: 'No UserID found' }, { status: 400 });
 
 	try {
 		const results = await getCart(userId);

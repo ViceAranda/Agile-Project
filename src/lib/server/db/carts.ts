@@ -1,6 +1,8 @@
+import type { RowDataPacket } from 'mysql2';
 import { initConnection } from './config';
+import type { Cart } from '@types';
 
-export async function getCart(userId: string) {
+export async function getCart(userId: string): Promise<Cart | null> {
 	const conn = await initConnection();
 	conn.connect();
 
@@ -16,7 +18,7 @@ export async function getCart(userId: string) {
     JOIN CATEGORIES cat ON pc.category_id = cat.id
     WHERE user_id = ${escapedId}`;
 
-	const [rows] = await conn.query(sql);
+	const [rows] = (await conn.query(sql)) as RowDataPacket[][];
 	conn.destroy();
 
 	type ExpectedRow = {
@@ -33,30 +35,28 @@ export async function getCart(userId: string) {
 		total_cost: number;
 	};
 
-	if (Array.isArray(rows)) {
-		if (rows.length === 0) return [];
-		let final_cost = 0;
-		const result = {
-			userId: (rows[0] as ExpectedRow).user_id,
-			cartId: (rows[0] as ExpectedRow).cart_id,
-			products: rows.map((row: unknown) => {
-				final_cost += (row as ExpectedRow).total_cost;
-				return {
-					id: (row as ExpectedRow).product_id,
-					name: (row as ExpectedRow).product,
-					price: (row as ExpectedRow).price,
-					qty: (row as ExpectedRow).qty,
-					category: (row as ExpectedRow).category,
-					description: (row as ExpectedRow).description,
-					size: (row as ExpectedRow).size,
-					fit: (row as ExpectedRow).fit,
-					total_cost: (row as ExpectedRow).total_cost
-				};
-			}),
-			final_cost
-		};
-		return result;
-	} else return null;
+	if (rows.length === 0) return null;
+	let final_cost = 0;
+	const result = {
+		userId: (rows[0] as ExpectedRow).user_id,
+		cartId: (rows[0] as ExpectedRow).cart_id,
+		products: rows.map((row: unknown) => {
+			final_cost += (row as ExpectedRow).total_cost;
+			return {
+				id: (row as ExpectedRow).product_id,
+				name: (row as ExpectedRow).product,
+				price: (row as ExpectedRow).price,
+				qty: (row as ExpectedRow).qty,
+				category: (row as ExpectedRow).category,
+				description: (row as ExpectedRow).description,
+				size: (row as ExpectedRow).size,
+				fit: (row as ExpectedRow).fit,
+				total_cost: (row as ExpectedRow).total_cost
+			};
+		}),
+		final_cost
+	};
+	return result;
 }
 
 export async function addItem(cartId: string, productId: string, qty: number) {
