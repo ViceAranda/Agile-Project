@@ -18,3 +18,19 @@ export type Product = {
 	size: number;
 	fit: string;
 };
+
+export type Cart = {
+	userId: number;
+	cartId: number;
+	products: {
+		name: string;
+		price: number;
+		qty: number;
+		category: string;
+		description: string;
+		size: number;
+		fit: string;
+		total_cost: number;
+	}[];
+	final_cost: number;
+};
