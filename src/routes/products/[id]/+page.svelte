@@ -55,11 +55,11 @@
 
 
 <div class="flex justify-center">
-    <div class="left-container w-[50%] flex flex-col items-center justify-center">
+    <div class="left-container w-[50%] flex flex-col items-start justify-center">
         <div class="product-image bg-white">
             <img src={imageUrl} alt="product image" class="max-w-full h-auto">
         </div>
-        <div class="review bg-orange-500">
+        <div class="review w-[100%]">
             <Review />
         </div>
     </div>
