@@ -95,7 +95,14 @@
             <br>
             <br>
         
-            <button class=" bg-black text-gray-200" type="submit">Add to basket</button>
+            <button class=" bg-black text-gray-200 text-center w-full p-1" type="submit">ADD TO BASKET</button>
         </form>
     </div>
 </div>
+
+<!-- Select tags should use same styling -->
+<style>
+    select {
+        @apply bg-white w-full border-2 border-solid border-black p-1;
+    }
+</style>
