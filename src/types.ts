@@ -23,6 +23,7 @@ export type Cart = {
 	userId: number;
 	cartId: number;
 	products: {
+		id: number;
 		name: string;
 		price: number;
 		qty: number;

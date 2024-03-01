@@ -30,7 +30,7 @@ export async function PUT({ request }) {
 
 	try {
 		await addItem(cartId, productId, qty || 0);
-		return json({ message: 'Successfully updated cart items!' }, { status: 200 });
+		return json({ message: 'Successfully updated cart items!' }, { status: 201 });
 	} catch (error) {
 		console.error(error);
 		return json({ message: 'Internal Server error' }, { status: 500 });
