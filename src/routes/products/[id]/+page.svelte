@@ -5,6 +5,7 @@
 	import { onMount } from 'svelte';
 	import type { PageData } from './$types';
     import Review from "$lib/components/Review.svelte";
+    import { writable } from 'svelte/store';
 
     export let data: PageData
 
@@ -42,28 +43,51 @@
 		alert(`submitted option ${size} ${quantity}`);
 	}
 
+    // Store to manage the visibility state of the reviews
+    // hide reviews when < 768 px to improve mobile browsing experience
+    const reviewsVisible = writable(true);
+
+    // Function to update reviewsVisible based on screen width
+    const updateVisibility = () => {
+    reviewsVisible.set(window.innerWidth > 768); // Set to true if screen width is greater than 768 pixels, otherwise false
+    };
+
+    // Subscribe to window resize events to update reviewsVisible dynamically
+    window.addEventListener('resize', updateVisibility);
+
+    // Function to toggle the visibility of the reviews
+    const toggleReviews = () => {
+    reviewsVisible.update(value => !value);
+};
+
 </script>
 
 
-{#if productData}
+<!-- {#if productData}
     <code>
         <pre>
             {JSON.stringify(productData, null, 2)}
         </pre>
     </code>
-{/if}
+{/if} -->
 
-
-<div class="flex justify-center">
-    <div class="left-container w-[50%] flex flex-col items-start justify-center">
+<!-- responsive break point set at 768 px -->
+<div class="flex flex-col md:flex-row justify-center">
+    <div class="left-container md:w-[50%] flex flex-col items-start justify-center">
         <div class="product-image bg-white">
             <img src={imageUrl} alt="product image" class="max-w-full h-auto">
         </div>
-        <div class="review w-[100%]">
-            <Review />
-        </div>
+        {#if $reviewsVisible}
+            <div class="reviews w-[100%]">
+                <Review />
+                <button  class=" text-blue-500" on:click={toggleReviews}>hide reviews</button>
+            </div>
+        {/if}
+        {#if !$reviewsVisible}
+                <button class=" text-blue-500" on:click={toggleReviews}>show reviews</button>
+        {/if}
     </div>
-    <div class="right-container w-[20%] px-4">
+    <div class="right-container md:w-[20%] px-4">
         <h1 class=" text-4xl">{name}</h1>
         <p class="text-lg ">
             £{price.toFixed(2)}
@@ -82,7 +106,6 @@
             <br>
             <br>
         
-            <!-- <label for="quantity">Select Quantity:</label> -->
             <select bind:value={quantity}>
                 <option value="">Select Quantity</option>
                 <option value="2">1</option>
@@ -95,7 +118,7 @@
             <br>
             <br>
         
-            <button class=" bg-black text-gray-200 text-center w-full p-1" type="submit">ADD TO BASKET</button>
+            <button class=" bg-black text-gray-200 text-center w-full max-w-48 p-1" type="submit">ADD TO BASKET</button>
         </form>
     </div>
 </div>
@@ -103,6 +126,6 @@
 <!-- Select tags should use same styling -->
 <style>
     select {
-        @apply bg-white w-full border-2 border-solid border-black p-1;
+        @apply bg-white w-full border-2 border-solid border-black p-1 max-w-48;
     }
 </style>
