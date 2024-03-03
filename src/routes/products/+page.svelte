@@ -179,7 +179,7 @@
 		{#each filteredData as product (product.id)}
 			<ProductCard
 				id={product.id}
-				imageUrl={'image 3.png'}
+				imageUrl={product.image_url}
 				name={product.name}
 				price={product.price}
 			/>
