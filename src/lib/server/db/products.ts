@@ -10,7 +10,7 @@ export async function selectAll(): Promise<RowDataPacket[]> {
 	const conn = await initConnection();
 	conn.connect();
 
-	const sql = `SELECT p.id , p.name, p.description , p.price , p.stock , p.${`size`}, p.fit, p.nav_category , c.name as category  FROM PRODUCTS p 
+	const sql = `SELECT p.id , p.name, p.description , p.price , p.stock , p.${`size`}, p.fit, p.image_url, p.nav_category, c.name as category  FROM PRODUCTS p 
     JOIN PRODUCT_CATEGORIES pc ON p.id = pc.product_id 
     JOIN CATEGORIES c ON pc.category_id = c.id
     ORDER BY p.id`;
@@ -30,7 +30,7 @@ export async function selectById(id: string): Promise<RowDataPacket[]> {
 
 	const escapedId = conn.escapeId(id).replaceAll('`', '');
 
-	const sql = `SELECT p.id , p.name, p.description , p.price , p.stock , p.${`size`}, p.fit, c.name as category  FROM PRODUCTS p 
+	const sql = `SELECT p.id , p.name, p.description , p.price , p.stock , p.${`size`}, p.fit, p.image_url, c.name as category  FROM PRODUCTS p 
     JOIN PRODUCT_CATEGORIES pc ON p.id = pc.product_id 
     JOIN CATEGORIES c ON pc.category_id = c.id
     WHERE p.id=${escapedId}
@@ -52,7 +52,7 @@ export async function selectByCategory(categoryId: string): Promise<RowDataPacke
 
 	const escapedId = conn.escapeId(categoryId).replaceAll('`', '');
 
-	const sql = `SELECT p.id , p.name, p.description , p.price , p.stock , p.${`size`}, p.fit, c.name as category  FROM PRODUCTS p 
+	const sql = `SELECT p.id , p.name, p.description , p.price , p.stock , p.${`size`}, p.fit, p.image_url, c.name as category  FROM PRODUCTS p 
     JOIN PRODUCT_CATEGORIES pc ON p.id = pc.product_id 
     JOIN CATEGORIES c ON pc.category_id = c.id
     WHERE c.id=${escapedId}
@@ -92,7 +92,7 @@ export async function fuzzySelect(searchTerm: string): Promise<RowDataPacket[]> 
 	conn.connect();
 
 	const escapedTerm = conn.escape(searchTerm).replace(/^'(.*)'$/, '$1');
-	const sql = `SELECT p.id , p.name, p.description , p.price , p.stock , p.${`size`}, p.fit, c.name as category  FROM PRODUCTS p 
+	const sql = `SELECT p.id , p.name, p.description , p.price , p.stock , p.${`size`}, p.fit, p.image_url, c.name as category  FROM PRODUCTS p 
     JOIN PRODUCT_CATEGORIES pc ON p.id = pc.product_id 
     JOIN CATEGORIES c ON pc.category_id = c.id
     WHERE p.name LIKE '%${escapedTerm}%' OR c.name LIKE '%${escapedTerm}%'
