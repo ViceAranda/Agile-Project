@@ -18,7 +18,7 @@ export async function checkEmailAvailable(email: string): Promise<boolean> {
 	return result.length === 0;
 }
 
-export async function insertUser(user: User): Promise<ResultSetHeader> {
+export async function createUser(user: User): Promise<ResultSetHeader> {
 	const conn = await initConnection();
 	conn.connect();
 
@@ -33,7 +33,7 @@ export async function findUser(email: string) {
 	const conn = await initConnection();
 	conn.connect();
 
-	const sql = 'SELECT * FROM USERS WHERE email = ?';
+	const sql = 'SELECT password FROM USERS WHERE email = ?';
 	const [result] = await conn.query(sql, [email]);
 	conn.destroy();
 

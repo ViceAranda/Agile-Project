@@ -9,6 +9,7 @@
 	let loading = false;
 	$: console.log(form);
 	$: if (form) loading = false;
+	$: if (form?.ok) goto('/sign_in');
 </script>
 
 <div class="my-36 mx-auto p-8 w-fit min-w-1/3 h-1/3 bg-zinc-100 rounded-lg shadow">
