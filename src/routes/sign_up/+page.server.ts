@@ -1,11 +1,10 @@
-import { securePassword } from '$lib/server/auth/index.js';
-import { checkEmailAvailable, createUser } from '$lib/server/db/auth.js';
-import { fail } from '@sveltejs/kit';
+import { registerUser, securePassword, setAuthToken } from '$lib/server/auth/index.js';
+import { checkEmailAvailable } from '$lib/server/db/auth.js';
+import { fail, redirect } from '@sveltejs/kit';
 import type { User } from '@types';
-import type { ResultSetHeader } from 'mysql2';
 
 export const actions = {
-	default: async ({ request }) => {
+	default: async ({ cookies, request }) => {
 		const formData = await request.formData();
 
 		const fname = formData.get('fname') as string | null,
@@ -45,20 +44,19 @@ export const actions = {
 			region_id: '-1',
 			location_id: '-1'
 		};
-		let result: ResultSetHeader;
 		try {
-			result = await createUser(newUser);
+			const token = await registerUser(newUser);
+			if (!token) {
+				console.error('Database did not insert a new user');
+				return fail(500, { message: "Couldn't create new user. Please, try later..." });
+			} else {
+				console.log('Successful sign up');
+				setAuthToken(cookies, token);
+				return redirect(302, '/sign_in');
+			}
 		} catch (error) {
-			console.error('createUser:', error);
+			console.error('registerUser:', error);
 			return fail(500, { message: "Couldn't create new user. Please, try later..." });
-		}
-
-		if (result.affectedRows === 0) {
-			console.error('Database did not insert a new user');
-			return fail(500, { message: "Couldn't create new user. Please, try later..." });
-		} else {
-			console.log('Successful sign up');
-			return { ok: true };
 		}
 	}
 };
