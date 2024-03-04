@@ -19,7 +19,7 @@
   } }
 >
     <SplideSlide>
-        <img class="w-full h-full rounded-lg" src="image 1.png" alt="students in uniform" />
+        <img class="w-full h-full rounded-lg" src="image1.png" alt="students in uniform" />
     </SplideSlide>
     <SplideSlide>
         <img class="w-full h-full rounded-lg" src="image 2.png" alt="students in uniform" />
