@@ -8,7 +8,7 @@ export async function getCart(userId: string): Promise<Cart | null> {
 
 	const escapedId = conn.escapeId(userId).replaceAll('`', '');
 
-	const sql = `SELECT u.id AS user_id, c.id AS cart_id, p.id AS product_id, p.name AS product, p.price AS price, cat.name AS category, p.description AS description,
+	const sql = `SELECT u.id AS user_id, c.id AS cart_id, p.id AS product_id, p.name AS product, p.image_url AS img, p.price AS price, cat.name AS category, p.description AS description,
     ci.qty AS qty, p.size AS size, p.fit AS fit, ROUND(price * qty, 2) AS total_cost
     FROM USERS AS u
     JOIN CARTS c ON u.id = c.user_id
@@ -32,6 +32,7 @@ export async function getCart(userId: string): Promise<Cart | null> {
 		description: string;
 		size: number;
 		fit: string;
+		img: string;
 		total_cost: number;
 	};
 
@@ -51,6 +52,7 @@ export async function getCart(userId: string): Promise<Cart | null> {
 				description: (row as ExpectedRow).description,
 				size: (row as ExpectedRow).size,
 				fit: (row as ExpectedRow).fit,
+				img: (row as ExpectedRow).img,
 				total_cost: (row as ExpectedRow).total_cost
 			};
 		}),

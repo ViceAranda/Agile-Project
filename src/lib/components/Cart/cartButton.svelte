@@ -1,14 +1,9 @@
 <script lang="ts">
-	import { onDestroy } from 'svelte';
-	import { get } from 'svelte/store';
 	import { onMount } from 'svelte';
     import CartModal from './CartModal.svelte';
-    let showModal = false; 
-
-	let totalNumberOfItems: any;
+    let showModal = false as boolean; 
 	let CartData = [] as any;
 	let Products = [] as any;
-	let total: number;
 
 	const fetchData = async () => {
         const res = await fetch('/api/cart?user_id=1');
@@ -19,8 +14,6 @@
 
     // Get the cart data from the backend
     onMount(fetchData);
-
-    $: total = CartData.final_cost && !isNaN(CartData.final_cost) ? parseFloat(CartData.final_cost.toFixed(2)) : 0;
 
     let RemoveItem = (id: number) => {
     const body = { cartId: CartData.cartId , productId: id };
@@ -56,8 +49,6 @@
 	RemoveItem(event.detail.productId);
   }
 
-
-
 </script>
 
 <button
@@ -76,14 +67,13 @@
 
 <!-- Dropdown menu -->
 {#if showModal}
-<div class="z-25">
-    <CartModal 
-	on:close={() => showModal = false} 
-	on:add={handleUpdate}
-	on:remove={handleRemove}
-	{CartData}
-	{Products}
-	{total}
-	/>
-</div>
+	<div class="z-50">
+		<CartModal 
+			on:close={() => (showModal = false)}
+			{...CartData}
+			{...Products}
+			on:add={handleUpdate}
+			on:remove={handleRemove}
+		/>
+	</div>
 {/if}

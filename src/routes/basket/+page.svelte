@@ -9,6 +9,7 @@
         const data = await res.json();
         CartData = data.cart;
         Products = CartData.products;
+        console.log(CartData);
     };
 
     // Get the cart data from the backend

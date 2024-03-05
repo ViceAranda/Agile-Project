@@ -5,6 +5,7 @@
 </script>
 
 <div class="relative flex-grow w-full h-full overflow-hidden shadow-lg rounded-md">
+<!-- svelte-ignore a11y-img-redundant-alt -->
 <img 
 src={imageUrl} 
 alt="Product Image" 

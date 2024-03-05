@@ -15,9 +15,6 @@
 	import SearchBar from '../Search/searchBar.svelte';
 	import CartButton from '../Cart/cartButton.svelte';
 	import UserAccount from '../accounts/userAccount.svelte';
-
-
-    
   </script>
   
   <div class="space-x-1 ">

@@ -17,7 +17,7 @@ export type Product = {
 	stock: number;
 	size: number;
 	fit: string;
-	imageUrl: string;
+	image_url: string;
 };
 
 export type Cart = {

@@ -30,9 +30,6 @@
         name = productData.name;
         price = productData.price;
         imageUrl = productData.image_url;
-        
-        console.log(productData.imageUrl);
-        console.log("The image url is: " + imageUrl);
 
     })
 
