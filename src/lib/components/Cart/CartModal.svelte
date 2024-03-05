@@ -14,7 +14,7 @@
         dispatch('close'); 
     }
 
-    // $: total = CartData.final_cost && !isNaN(CartData.final_cost) ? parseFloat(CartData.final_cost.toFixed(2)) : 0;
+    $: total = CartData.final_cost && !isNaN(CartData.final_cost) ? parseFloat(CartData.final_cost.toFixed(2)) : 0;
 
 
 function handleUpdate(id: number, qty: number) {

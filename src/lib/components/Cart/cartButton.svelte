@@ -70,8 +70,8 @@
 	<div class="z-50">
 		<CartModal 
 			on:close={() => (showModal = false)}
-			{...CartData}
-			{...Products}
+			{CartData}
+			{Products}
 			on:add={handleUpdate}
 			on:remove={handleRemove}
 		/>
