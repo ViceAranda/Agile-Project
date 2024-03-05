@@ -24,12 +24,12 @@ export async function GET({ url }) {
  * Add Item to user's cart
  */
 export async function PUT({ request }) {
-	const { cartId, productId, qty } = await request.json();
+	const { cartId, productId, qty, size } = await request.json();
 	if (!cartId) return json({ message: 'Must provide a Cart ID' }, { status: 400 });
 	if (!productId) return json({ message: 'Must provide a Product ID' }, { status: 400 });
 
 	try {
-		await addItem(cartId, productId, qty || 0);
+		await addItem(cartId, productId, qty, size || 0);
 		return json({ message: 'Successfully updated cart items!' }, { status: 201 });
 	} catch (error) {
 		console.error(error);

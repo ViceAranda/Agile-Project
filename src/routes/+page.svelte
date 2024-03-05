@@ -3,9 +3,6 @@
   import PromotionCard from "$lib/components/PromotionCard.svelte";
   import HeroBanner from "$lib/components/HeroBanner.svelte";
 
-  function getProducts() {
-    fetch('/api/products?id=1').then(res => res.json()).then(data => console.log(data));
-  }
 </script>
 
 <svelte:head>

@@ -61,13 +61,14 @@ export async function getCart(userId: string): Promise<Cart | null> {
 	return result;
 }
 
-export async function addItem(cartId: string, productId: string, qty: number) {
+export async function addItem(cartId: string, productId: string, qty: number, size: number) {
 	const conn = await initConnection();
 	conn.connect();
 
 	const escapedCartId = conn.escape(cartId);
 	const escapedProductId = conn.escape(productId);
 	const escapedQty = conn.escape(qty);
+	const escapeSize = conn.escape(size);
 
 	// Check if product has already been added
 	const [rows] = await conn.query('SELECT * FROM CART_ITEMS WHERE cart_id = ? AND product_id = ?', [
@@ -76,15 +77,15 @@ export async function addItem(cartId: string, productId: string, qty: number) {
 	]);
 	if (Array.isArray(rows) && rows.length > 0) {
 		// If product is on the cart, update qty
-		const sql = 'UPDATE CART_ITEMS SET qty = ? WHERE cart_id = ? AND product_id = ?';
-		const [affectedRows] = await conn.query(sql, [escapedQty, escapedCartId, escapedProductId]);
+		const sql = 'UPDATE CART_ITEMS SET qty = ? AND size = ?WHERE cart_id = ? AND product_id = ?';
+		const [affectedRows] = await conn.query(sql, [escapedQty, escapedCartId, escapedProductId, escapeSize]);
 		conn.destroy;
 		return affectedRows;
 	}
 
 	// Else, add new item to cart
-	const sql = 'INSERT INTO CART_ITEMS VALUES (?,?,?)';
-	const [affectedRows] = await conn.query(sql, [escapedCartId, escapedProductId, escapedQty]);
+	const sql = 'INSERT INTO CART_ITEMS VALUES (?,?,?,?)';
+	const [affectedRows] = await conn.query(sql, [escapedCartId, escapedProductId, escapedQty, escapeSize]);
 	conn.destroy;
 	return affectedRows;
 }
