@@ -1,5 +1,6 @@
 <script lang="ts">
     import { onMount } from 'svelte';
+    import { goto } from '$app/navigation';
     let CartData = [] as any;
     let Products = [] as any ;
     let total: number;
@@ -9,7 +10,6 @@
         const data = await res.json();
         CartData = data.cart;
         Products = CartData.products;
-        console.log(CartData);
     };
 
     // Get the cart data from the backend
@@ -48,19 +48,25 @@
         <div class="flex shadow-sm border-2 bg-white border-gray-200 rounded-md mb-2">
             <div class="grid grid-cols-6 grid-rows-1 gap-4 w-full items-center justify-start text-start">
                 <div >
-                    <a href="/product/{product.id}">
+                    
+                    <!-- svelte-ignore a11y-click-events-have-key-events -->
+                    <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
                     <img
                         src={product.img}
                         alt={product.name}
-                        class="w-24 h-20 object-cover p-1 border-1 border-gray-200 rounded-lg"
+                        class="w-24 h-20 object-cover p-1 border-1 border-gray-200 rounded-lg hover:cursor-pointer"
+                        on:click={() => goto(`products/${product.id}`)}
                     />
-                    </a>
+                    
                 </div>
                 <div >
-                    <h3 class="text-lg font-bold leading-6 text-gray-900">
-                        <a href="/product/{product.id}">
+                    <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
+                    <!-- svelte-ignore a11y-click-events-have-key-events -->
+                    <h3 class="text-lg font-bold leading-6 text-gray-900 hover:cursor-pointer"
+                    on:click={() => goto(`products/${product.id}`)}
+                    >
+
                             {product.name}
-                        </a>
                     </h3>
                 </div>
                 <div >
