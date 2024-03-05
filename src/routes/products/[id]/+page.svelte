@@ -30,10 +30,18 @@
 	export let size: Number;
 	export let quantity: Number;
 
-	async function handleSubmit (size: number, quantity: Number) {
+	async function handleSubmit ( quantity: Number) {
 
-        const body = { cartId: 1, productId: productData.id , qty: quantity, size: size};
-        const response = await fetch("/api/cart", { method: "PUT", body: JSON.stringify(body) });
+        const body = { 
+            cartId: 1, 
+            productId: productData.id , 
+            qty: quantity, 
+        };
+
+        const response = await fetch("/api/cart", { 
+            method: "PUT", 
+            body: JSON.stringify(body) 
+        });
 		console.log(response);
 	}
 
@@ -108,7 +116,6 @@
                 </div>
             </div>
         <br>
-        <form on:submit={handleSubmit}>
             <!-- <label for="size">Select Size:</label> -->   
 
             <div class="grid grid-cols-2 grid-rows-1 gap-4 mt-5">
@@ -119,7 +126,7 @@
                 </div>
                 <div class="text-right">
                     <p class="text-lg font-medium leading-6 text-gray-900">
-                        <select bind:value={size} class="w-3 rounded-sm">
+                        <select class="w-3 rounded-sm">
                             <option value="1">S</option>
                             <option value="2">M</option>
                             <option value="3">L</option>
@@ -151,12 +158,11 @@
             <div class="flex items-center justify-center mt-5 ">
                 <button
                 class="bg-gray-900 w-full text-white rounded-md py-3 px-4 hover:bg-gray-200 hover:text-black items-center justify-centertext-center"
-                on:click={() => handleSubmit(size, quantity)}
+                on:click={() => handleSubmit(quantity)}
             >
                 Add to Basket
             </button>
             </div>
-        </form>
         <div>
             <h1 class="text-3xl mb-2 font-bold underline leading-6 text-gray-900 mt-6">
                 Product Description
