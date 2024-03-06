@@ -1,1 +1,0 @@
-<div> footwear page</div>
