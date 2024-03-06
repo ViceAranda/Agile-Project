@@ -3,17 +3,16 @@
 	import { onMount } from 'svelte';
 	import type { PageData } from './$types';
     import Review from "$lib/components/Review.svelte";
-    import { writable } from 'svelte/store';
-
     export let data: PageData
-
     let name: string = '';
     let price: Number = 0;
     let imageUrl: string = '';
 
-    let productID = data.id,
-        productData: Product;
-    onMount(async () => {
+    let productID: any;
+    let productData: Product;
+
+
+    const FetchData = async () => {
         const response = await fetch(`/api/products?id=${productID}`)
             .then(res => res.json() as Promise<Product[]>)
             .catch(err => new Error(err));
@@ -21,46 +20,39 @@
             console.error(response);
             return;
         }
+
         productData = response[0];
         name = productData.name;
         price = productData.price;
         imageUrl = productData.image_url;
-    })
+    }
 
-	export let size: Number;
-	export let quantity: Number;
+    onMount(async () => {
+        productID = data.id;
+        await FetchData();
+    });
 
-	async function handleSubmit ( quantity: Number) {
+	export let quantity: any;
+
+	async function handleSubmit ( quantity: any) {
 
         const body = { 
-            cartId: 1, 
-            productId: productData.id , 
-            qty: quantity, 
+            cartId: 1,
+            productId: Number(productID),
+            qty: Number(quantity)
         };
 
         const response = await fetch("/api/cart", { 
             method: "PUT", 
             body: JSON.stringify(body) 
         });
-		console.log(response);
+        if (response.ok) {
+            window.location.reload();
+            
+        } else {
+            console.error('Failed to add item to cart');
+        }
 	}
-
-    // Store to manage the visibility state of the reviews
-    // hide reviews when < 768 px to improve mobile browsing experience
-    const reviewsVisible = writable(true);
-
-    // Function to update reviewsVisible based on screen width
-    const updateVisibility = () => {
-    reviewsVisible.set(window.innerWidth > 768); // Set to true if screen width is greater than 768 pixels, otherwise false
-    };
-
-    // Subscribe to window resize events to update reviewsVisible dynamically
-    window.addEventListener('resize', updateVisibility);
-
-    // Function to toggle the visibility of the reviews
-    const toggleReviews = () => {
-    reviewsVisible.update(value => !value);
-};
 
 </script>
 
@@ -69,15 +61,6 @@
     <meta name="description" content="ClassClothCo.co.uk - {name}" />
 </svelte:head>
 
-
-<!-- {#if productData}
-    <code>
-        <pre>
-            {JSON.stringify(productData, null, 2)}
-        </pre>
-    </code>
-{/if} -->
-
 <!-- responsive break point set at 768 px -->
 
 <div class="relative flex flex-col md:flex-row justify-center">
@@ -85,17 +68,10 @@
         <div class="flex product-image bg-white items-center justify-center">
             <img src={imageUrl} alt={name} class="w-[800px] h-[800px] object-contain mx-auto">
         </div>
-        {#if $reviewsVisible}
             <div class="reviews w-[100%]">
                 <Review />
-                <button  class=" text-blue-500 ml-5" on:click={toggleReviews}>hide reviews
-                </button>
             </div>
-        {/if}
-        {#if !$reviewsVisible}
-                <button class=" text-blue-500" on:click={toggleReviews}>show reviews
-                </button>
-        {/if}
+
     </div>
     <div class="relative right-container md:w-[20%] py-5 px-5">
         <div class="bg-white rounded-md shadow-sm h-full w-full border-2 border-gray-200 px-5 ">

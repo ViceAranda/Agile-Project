@@ -1,6 +1,7 @@
 <script  lang="ts">
 	let pages: string[] = ['Boys', 'Girls', 'Sports', 'Footwear'];
 	let activePage: string = 'Home';
+
 	
 	function setActivePage(page: string) {
 		activePage = page;
@@ -82,7 +83,7 @@
 
 		<div class="flex space-x-1 items-center justify-center sm:justify-start text-center">
 			<UserAccount />
-			<CartButton />
+			<CartButton  />
 		</div>
 
       </nav>

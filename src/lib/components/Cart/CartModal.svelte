@@ -1,11 +1,19 @@
 <script lang="ts">
-	import { createEventDispatcher } from 'svelte';
+	import { createEventDispatcher, onMount, onDestroy } from 'svelte';
 	import { goto } from '$app/navigation';
 	export let CartData = [] as any;
     export let Products = [] as any ;
     let total: number;
 
 	const dispatch = createEventDispatcher();
+
+	onMount(() => {
+        document.body.style.overflow = 'hidden';
+    });
+
+    onDestroy(() => {
+        document.body.style.overflow = 'auto';
+    });
 
 	function close() {	dispatch('close');	}
 
@@ -31,11 +39,11 @@ function handleRemove(id: number) {
 <!-- svelte-ignore a11y-no-static-element-interactions -->
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <div
-	class="modal fixed z-20 inset-0 bg-white bg-opacity-100 p-10 justify-center items-center h-screen w-screen"
+	class="modal fixed z-20 inset-0 bg-white bg-opacity-100 p-10 justify-center items-center h-screen w-screen overflow-auto"
 	on:click={close}
 >
 
-	<div class="modal-overlay relative flex">
+<div class="modal-overlay relative flex ">
 		<div class="absolute right-[2%] top-0 items-end justify-end text-end">
 			<button
 				class="px-4 py-2 font-extrabold bg-gray-900 text-white rounded hover:bg-gray-200 hover:text-black"

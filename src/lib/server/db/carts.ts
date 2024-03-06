@@ -69,7 +69,6 @@ export async function addItem(cartId: string, productId: string, qty: number) {
 	const escapedProductId = conn.escape(productId);
 	const escapedQty = conn.escape(qty);
 
-
 	// Check if product has already been added
 	const [rows] = await conn.query('SELECT * FROM CART_ITEMS WHERE cart_id = ? AND product_id = ?', [
 		escapedCartId,

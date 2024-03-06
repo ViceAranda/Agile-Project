@@ -5,7 +5,7 @@
 	let CartData = [] as any;
 	let Products = [] as any;
 
-	const fetchData = async () => {
+	export const fetchData = async () => {
         const res = await fetch('/api/cart?user_id=1');
         const data = await res.json();
         CartData = data.cart;
